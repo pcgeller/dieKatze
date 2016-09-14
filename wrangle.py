@@ -29,6 +29,7 @@ def mkMunch(df):
     return(m)
 
 #Polished data set for modeling
+dataset = mkMunch(df)
 train = mkMunch(dftrain)
 test = mkMunch(dftest)
 
