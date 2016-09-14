@@ -3,34 +3,39 @@
 import csv
 import sys
 import pandas as pd
-# with open('./data/mors.csv','rb') as f:
-#     reader = csv.reader(f)
-#     try:
-#         for row in reader:
-#             print(row)
-#     except csv.Error as e:
-#         sys.exit('File %s, line %d: %s' % (filename, reader.line_num, e))
 
-#!!!! File encoding problems.  KLUDGE!
+#Open up the data as and keep it as a list
+def asList(filename):
+    with open(filename, 'r') as f:
+        try:
+            reader = csv.reader(f)
+            data = list(reader)
+        except csv.Error as e:
+            sys.exit('file %s, line %d: %s' % (filename, reader.line_num,e))
+        return(data)
 
-#filename = './data/mors8.csv'
-reader = csv.reader(open('./data/mors8.csv','r'))
-for row in reader:
-    print(row)
+#Open up the data as a pandas dataframe
+def asDF(filename):
+    data = pd.read_csv(filename)
+    return(data)
 
-with open('./data/mors8.csv', 'r') as f:
-    reader = csv.reader(f)
-    data = list(reader)
+#WORKSPACE
+filename = './data/mors8.csv'
 
-data = pd.read_csv('./data/mors8.csv')
+data = asDF(filename)
 headers = list(data.columns.values)
 
 
-# filename )= './data/mors.csv'
+# filename = './data/mors.csv'
 # reader =' csv.reader(open(filename, 'rb'))
 # try:
 #     for row in reader:
 #         print(row)
 #     except csv.Error as e:
 #         sys.exit('file %s, line %d: %s' % (filename, reader.line_num,e))
->>>>>>> 4fc67a443e017ea2890facfbc75a45c562b6e5e7
+
+#Show the data
+#filename = './data/mors8.csv'
+# reader = csv.reader(open('./data/mors8.csv','r'))
+# for row in reader:
+#     print(row)
