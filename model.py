@@ -14,6 +14,7 @@ from sklearn import metrics
 from sklearn import cross_validation
 from sklearn.cross_validation import KFold
 from sklearn.metrics import f1_score
+from sklearn import grid_search
 
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
@@ -102,3 +103,5 @@ fit_and_evaluate(dataset, KNeighborsClassifier,"KNN", n_neighbors=12)
 fit_and_evaluate(dataset, RandomForestClassifier, "Random Forest")
 fit_and_evaluate(dataset, SGDClassifier, "SGD", loss = 'hinge', penalty = 'l2',alpha=1e-3, n_iter=5, random_state=4)
 fit_and_evaluate(dataset, MultinomialNB, "Naive Bayes")
+
+SVparam = {'kernel':('linear','poly','rbf','sigmoid'), 'degree':range(1,10)}
