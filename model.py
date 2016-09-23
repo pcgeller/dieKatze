@@ -24,7 +24,7 @@ from sklearn.linear_model import SGDClassifier
 
 from sklearn.pipeline import Pipeline
 #Tokenize
-countVec = CountVectorizer(stop_words = 'english', ngram_range=(1,3))
+countVec = CountVectorizer(stop_words = 'english', ngram_range=(1,10))
 trCount = countVec.fit_transform(train.text)
 
 fullCount = countVec.fit_transform(dataset.text)
@@ -55,7 +55,7 @@ text_clf = Pipeline([('vect',CountVectorizer()),
 ])
 #Test Set Performance
 
-dataset.features = fullTFIDF
+dataset.features = fullTF
 dataset.target = np.asarray(dataset.target)
 def fit_and_evaluate(dataset, model, label, **kwargs):
     '''Function to run multiple models easily.'''
@@ -71,7 +71,7 @@ def fit_and_evaluate(dataset, model, label, **kwargs):
 
         expected = Ytest
         predicted = estimator.predict(Xtest)
-        #print(predicted)
+        print(predicted)
 
         #Save scores in dictionary
         scores['precision'].append(metrics.precision_score(expected, predicted, average="weighted"))
@@ -88,7 +88,7 @@ def fit_and_evaluate(dataset, model, label, **kwargs):
     estimator = model(**kwargs)
     estimator.fit(dataset.features, dataset.target)
 
-    outpath = label.lower().replace(" ", "-") + ".pickle"
+    outpath = os.path.join('./models/', label.lower().replace(" ", "-") + ".pkl")
     with open(outpath, 'wb') as f:
         pkl.dump(estimator, f)
 
@@ -104,4 +104,9 @@ fit_and_evaluate(dataset, RandomForestClassifier, "Random Forest")
 fit_and_evaluate(dataset, SGDClassifier, "SGD", loss = 'hinge', penalty = 'l2',alpha=1e-3, n_iter=5, random_state=4)
 fit_and_evaluate(dataset, MultinomialNB, "Naive Bayes")
 
-SVparam = {'kernel':('linear','poly','rbf','sigmoid'), 'degree':range(1,10)}
+#SVparam = {'kernel':('linear','poly','rbf','sigmoid'), 'degree':range(1,10)}
+SGDparam = {'loss':('hinge','log','modified_huber','squared_hinge'),\
+            'penalty':('l2','l1','elasticnet'),\
+            'alpha':'np.arrange(.00001,.001)',\
+            'n_iter':'range(5,10)',\
+            }

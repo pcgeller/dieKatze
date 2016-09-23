@@ -3,6 +3,7 @@
 import csv
 import sys
 import pandas as pd
+import os
 from os import listdir
 from os.path import isfile, join
 
@@ -50,9 +51,9 @@ filename = './data/mors8.csv'
 path = './data/mini_newsgroups/comp.graphics'
 
 data = asDF(filename)
-headers = list(data.columns.values)
+headers = lisdata(data.columns.values)
 
-file = onlyfiles[1]
+#file = onlyfiles[1]
 
 
 

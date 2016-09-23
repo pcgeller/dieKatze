@@ -4,17 +4,21 @@ from munch import *
 import numpy as np
 from sklearn.cross_validation import train_test_split
 from sklearn import preprocessing
+import os
+from os import listdir
+from os.path import isfile, join
+
 
 ##################################################
 #For pulling the data from files (that only contain blobs of text)
 
-data = readfiles(path)
+filedata = readfiles(path)
 def fMunch(dict):
     fm = Munch()
-    m.files = dict.keys()
-    m.text = dict.values()
-    m.target = []
-    return(m)
+    fm.files = dict.keys()
+    fm.text = dict.values()
+    fm.target = []
+    return(fm)
 
 ##################################################
 #For pulling the data from a spreadsheet
