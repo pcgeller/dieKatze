@@ -4,6 +4,21 @@ from munch import *
 import numpy as np
 from sklearn.cross_validation import train_test_split
 from sklearn import preprocessing
+
+##################################################
+#For pulling the data from files (that only contain blobs of text)
+
+data = readfiles(path)
+def fMunch(dict):
+    fm = Munch()
+    m.files = dict.keys()
+    m.text = dict.values()
+    m.target = []
+    return(m)
+
+##################################################
+#For pulling the data from a spreadsheet
+
 # de-duplicate titles - this will mean that each abstract is assigned to a
 # pseudo correct working group
 
@@ -34,3 +49,6 @@ train = mkMunch(dftrain)
 test = mkMunch(dftest)
 
 len(dftrain) + len(dftest)
+
+#WORKSPACE
+path = './data/mini_newsgroups/comp.graphics'

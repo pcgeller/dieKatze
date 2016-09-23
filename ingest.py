@@ -11,15 +11,21 @@ from os.path import isfile, join
 # This ingest works for pulling data stored in indivdual files within
 # a folder
 def readfiles(path):
+    d = {}
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
-    for f in onlyfiles:
-        with open(filename, 'r') as f:
-            try:
-                reader = csv.reader(f)
-                data = list(reader)
-            except csv.Error as e:
-                sys.exit('file %s, line %d: %s' % (filename, reader.line_num,e))
-            return(data)
+    print("File list: ", onlyfiles[0:4])
+    for filename in onlyfiles:
+        print('Filename: ', filename)
+        filepath = os.path.join(path,filename)
+        print("Filepath: ", filepath)
+        try:
+            with open(filepath, 'r') as f:
+                d[filename] = f.read()
+        except UnicodeDecodeError:
+            with open(filepath,'r', encoding = "ISO-8859-1") as f:
+                d[filename] = f.read()
+    return(d)
+
 
 ############################################################
 # This ingest works for pulling data from a spreadsheet
@@ -45,6 +51,9 @@ path = './data/mini_newsgroups/comp.graphics'
 
 data = asDF(filename)
 headers = list(data.columns.values)
+
+file = onlyfiles[1]
+
 
 
 # filename = './data/mors.csv'
